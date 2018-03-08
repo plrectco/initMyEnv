@@ -41,6 +41,17 @@ else
 EOF
 fi
 
+INIT_FILE_ROOT_DIR="${HOME}/.config/terminal_init/"
+SETTING_BACKUP_DIR="${INIT_FILE_ROOT_DIR}/setting_backup"
+
+if [ ! -d "${INIT_FILE_ROOT_DIR}" ]; then
+    mkdir -p "${INIT_FILE_ROOT_DIR}"
+fi
+
+if [ ! -d "${SETTING_BACKUP_DIR}" ]; then
+    mkdir -p "${SETTING_BACKUP_DIR}"
+fi
+
 ${base_dir}/other_install/install_vim.sh ${user_name} ${user_mail}
 
 cp ${base_dir}/configs/bash_alias ~/.bash_alias
@@ -49,9 +60,9 @@ cp ${base_dir}/configs/inputrc ~/.inputrc
 cp ${base_dir}/configs/tmux.conf ~/.tmux.conf
 cp ${base_dir}/configs/my_configs.vim ~/.vim_runtime/
 cp ${base_dir}/configs/gitconfig ~/.gitconfig; sed -i "s?#NAME#?${git_name}?g;s?#MAIL#?${git_email}?g" ~/.gitconfig
-cp ${base_dir}/configs/git-completion.bash ~/.git-completion.bash
-if [ ! -e ~/.web_list ]; then
-    cp ${base_dir}/configs/web_list ~/.web_list
+cp ${base_dir}/configs/git-completion.bash "${INIT_FILE_ROOT_DIR}/git-completion.bash"
+if [ ! -e "${INIT_FILE_ROOT_DIR}/web_list" ]; then
+    cp ${base_dir}/configs/web_list "${INIT_FILE_ROOT_DIR}/web_list"
 fi
 
 # config the tmux with different version

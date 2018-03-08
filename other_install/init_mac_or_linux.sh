@@ -69,15 +69,22 @@ done
 
 echo "${green}[FINISHED]${endcolor} done installing! "
 
-if [ ! -d ~/.setting_backup ]; then
-    mkdir ~/.setting_backup
+INIT_FILE_ROOT_DIR="${HOME}/.config/terminal_init/"
+SETTING_BACKUP_DIR="${INIT_FILE_ROOT_DIR}/setting_backup"
+
+if [ ! -d "${INIT_FILE_ROOT_DIR}" ]; then
+    mkdir -p "${INIT_FILE_ROOT_DIR}"
+fi
+
+if [ ! -d "${SETTING_BACKUP_DIR}" ]; then
+    mkdir -p "${SETTING_BACKUP_DIR}"
 fi
 
 function backup_and_copy
 {
     if [ -f "$1" ]; then
         backup "$1"
-        mv ${backup_file_dir} ~/.setting_backup/
+        mv ${backup_file_dir} ${SETTING_BACKUP_DIR}
     fi
 }
 
@@ -107,10 +114,10 @@ cp ${base_dir}/configs/inputrc ~/.inputrc
 cp ${base_dir}/configs/tmux.conf ~/.tmux.conf
 cp ${base_dir}/configs/my_configs.vim ~/.vim_runtime/
 cp ${base_dir}/configs/gitconfig ~/.gitconfig; sed -i "s?#NAME#?${git_name}?g;s?#MAIL#?${git_email}?g" ~/.gitconfig
-cp ${base_dir}/configs/git-completion.bash ~/.git-completion.bash
+cp ${base_dir}/configs/git-completion.bash "${INIT_FILE_ROOT_DIR}/git-completion.bash"
 cp ${base_dir}/configs/bash_profile ~/.bash_profile
-if [ ! -e ~/.web_list ]; then
-    cp ${base_dir}/configs/web_list ~/.web_list
+if [ ! -e "${INIT_FILE_ROOT_DIR}/web_list" ]; then
+    cp ${base_dir}/configs/web_list "${INIT_FILE_ROOT_DIR}/web_list"
 fi
 
 # config the tmux with different version

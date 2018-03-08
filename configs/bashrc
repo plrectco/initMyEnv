@@ -1,6 +1,9 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 
+# define the init path
+INIT_FILE_ROOT_DIR="${HOME}/.config/terminal_init/"
+
 # make sure all terminals save history
 shopt -s histappend
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
@@ -107,7 +110,7 @@ fi
 
 # git command completion
 if [ -f ~/.git-completion.bash ]; then
-    source ~/.git-completion.bash
+    source "${INIT_FILE_ROOT_DIR}/git-completion.bash"
 fi
 
 # for mac gnu sed
